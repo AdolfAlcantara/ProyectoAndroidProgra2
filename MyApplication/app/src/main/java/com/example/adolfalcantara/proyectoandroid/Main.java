@@ -91,7 +91,7 @@ public class Main extends AppCompatActivity {
     }
 
 
-    public void limpiar(View view) {
+    private void limpiar(View view) {
         texto.setText("");
     }
 }
