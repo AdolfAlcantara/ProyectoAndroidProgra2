@@ -10,12 +10,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
+
 public class Login extends AppCompatActivity {
 
     EditText user;
     EditText pass;
 
     SharedPreferences sharedPref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class Login extends AppCompatActivity {
 
         user = (EditText) findViewById(R.id.etUsuarioInput);
         pass = (EditText) findViewById(R.id.etContrasenaInput);
+
     }
 
     public void login(View view) {
@@ -39,7 +43,7 @@ public class Login extends AppCompatActivity {
             Intent i = new Intent(this, Main.class);
             startActivity(i);
         }else{
-            Toast.makeText(this,"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
         }
 
 
@@ -58,5 +62,8 @@ public class Login extends AppCompatActivity {
         editor.apply();
 
         Toast.makeText(this,"Usuario creado",Toast.LENGTH_SHORT).show();
+
+        user.setText("");
+        pass.setText("");
     }
 }

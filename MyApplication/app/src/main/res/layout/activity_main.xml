@@ -20,7 +20,8 @@
         android:id="@+id/etNota"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        tools:layout_height="wrap_content" />
+        tools:layout_height="wrap_content"
+        android:onClick="limpiar"/>
 
     <Button
         android:text="Guardar"
@@ -47,4 +48,16 @@
         android:layout_alignBottom="@+id/btSave"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etNota"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="67dp"
+        android:id="@+id/tvNota"
+        android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
 </RelativeLayout>

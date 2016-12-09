@@ -20,6 +20,7 @@ import java.io.OutputStreamWriter;
 public class Main extends AppCompatActivity {
 
     EditText texto;
+    TextView nota;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,21 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         texto = (EditText) findViewById(R.id.etNota);
+        nota = (TextView) findViewById(R.id.tvNota);
+    }
+
+    public void guardar(View view) throws IOException {
+        String contenido = texto.getText().toString();
+        try{
+            FileOutputStream fos = openFileOutput("notas.txt",MODE_PRIVATE );
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            osw.write(contenido+'.');
+            osw.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        texto.setText("");
+        Toast.makeText(this,"Se guardo la nota",Toast.LENGTH_SHORT).show();
     }
 
     public void ver(View view) {
@@ -34,9 +50,26 @@ public class Main extends AppCompatActivity {
             FileInputStream fis = openFileInput("notas.txt");
             InputStreamReader isr = new InputStreamReader(fis);
 
-            String textoObt = "";
+            String textoObt="";
 
-            char buffer[] = new char[100];
+            int i;
+            char caracter;
+            do{
+                i = isr.read();
+                caracter = (char)i;
+
+                textoObt +=caracter;
+                if(caracter=='.')
+                    textoObt+='\n';
+
+
+            }while(i>0);
+            nota.setText(textoObt);
+            isr.close();
+
+            Toast.makeText(this,"Cargada",Toast.LENGTH_SHORT).show();
+
+         /*   char buffer[] = new char[100];
             int charRead;
             while((charRead=isr.read(buffer))>0){
                 //convertirmos los char a strings
@@ -45,27 +78,20 @@ public class Main extends AppCompatActivity {
 
                 buffer = new char[100];
             }
-            texto.setText(textoObt);
 
-            Toast.makeText(this,"Cargada",Toast.LENGTH_LONG).show();
-
+            nota.setText(textoObt);
             isr.close();
+
+            Toast.makeText(this,"Cargada",Toast.LENGTH_LONG).show();*/
+
+
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    public void guardar(View view) throws IOException {
-        String contenido = texto.getText().toString();
-        try{
-            FileOutputStream fos = openFileOutput("notas.txt",MODE_APPEND );
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            osw.write(contenido+"\n");
-            osw.flush();osw.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+
+    public void limpiar(View view) {
         texto.setText("");
-        Toast.makeText(this,"Se guardo la nota",Toast.LENGTH_LONG).show();
     }
 }
